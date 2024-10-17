@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import abort, make_response
+from flask import abort, make_response, request, jsonify
 
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
@@ -58,8 +58,19 @@ def update(lname, body):
 def delete(lname):
     if lname in PEOPLE:
         del PEOPLE[lname]
-        return make_response(
-            f"{lname} successfully deleted", 200
-        )
+        return make_response(f"{lname} successfully deleted", 200)
     else:
         abort(404,f"Person with last name {lname} not found")
+
+def upload():
+    
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part in the request"}), 400
+    
+    file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({"error": "No file selected"}), 400
+    
+    file_content = file.read().decode('utf-8')
+    print(f"File content: {file_content}")

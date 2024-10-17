@@ -91,3 +91,21 @@ paths:
       responses:
         "204":
           description: "Successfully deleted person"
+  /upload:
+    post:
+      summary: Upload a file
+      description: Uploads a file and returns a success message.
+      operationId: people.upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary 
+      responses:
+        200:
+          description: File uploaded successfully
+
