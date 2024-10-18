@@ -93,8 +93,10 @@ paths:
           description: "Successfully deleted person"
   /upload:
     post:
-      summary: Upload a file
-      description: Uploads a file and returns a success message.
+      summary: "Upload a file"
+      description: "Uploads a file and returns a success message."
+      tags:
+        - Data Upload
       operationId: people.upload
       requestBody:
         content:
@@ -107,5 +109,5 @@ paths:
                   format: binary 
       responses:
         200:
-          description: File uploaded successfully
+          description: "File uploaded successfully"
 

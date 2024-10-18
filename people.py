@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import abort, make_response, request, jsonify
+import csv
 
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
@@ -38,7 +39,7 @@ def create(body):
         }
         return PEOPLE[lname], 201
     else:
-        abort(406, f"Person with last name {lname} already exists")
+        return abort(406, f"Person with last name {lname} already exists")
 
 def read_one(lname):
     if lname in PEOPLE:
@@ -65,12 +66,29 @@ def delete(lname):
 def upload():
     
     if 'file' not in request.files:
-        return jsonify({"error": "No file part in the request"}), 400
+        abort(400, f"No file part in the request")
     
     file = request.files['file']
 
     if file.filename == '':
-        return jsonify({"error": "No file selected"}), 400
+        abort(400, f"No file selected")
     
-    file_content = file.read().decode('utf-8')
-    print(f"File content: {file_content}")
+    if not file.filename.endswith('.csv'):
+        abort(400, description="Only CSV files are allowed")
+
+    try:
+        file_content = file.read().decode('utf-8')
+        csv_reader = csv.DictReader(file_content.splitlines())
+        csv_data = [row for row in csv_reader]
+        print("CSV Data:", csv_data)
+
+        for item in csv_data:
+            try:
+                create(item)
+            except:
+                print(f"Could not add {item}")
+
+        return make_response({"message": "People uploaded successfully into DB", "data": csv_data}, 200)
+
+    except Exception as e:
+        abort(500, description=f"Failed to process the CSV file: {str(e)}")
