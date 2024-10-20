@@ -1,17 +1,16 @@
 from flask import render_template
-import connexion
-# from people import read_one
+# import connexion
+import config
+from models import Person
 
-app = connexion.App(__name__, specification_dir="./")
-app.add_api("swagger.yaml")
+app = config.connex_app
+app.add_api(config.basedir / "swagger.yaml")
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    people = Person.query.all()
+    return render_template("home.html", people=people)
 
-# @app.route("/people/<lname>", methods=["GET"])
-# def read_one_person(lname):
-#     read_one(lname)
 
 
 if __name__ == "__main__":
