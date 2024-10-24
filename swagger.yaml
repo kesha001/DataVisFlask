@@ -26,13 +26,13 @@ components:
       required: True
       schema:
         type: "string"
-    # note_id:
-    #   name: "note_id"
-    #   description: "ID of the note"
-    #   in: path
-    #   required: True
-    #   schema:
-    #     type: "integer"
+    note_id:
+      name: "note_id"
+      description: "ID of the note"
+      in: path
+      required: True
+      schema:
+        type: "integer"
     
 
 paths:
@@ -103,7 +103,7 @@ paths:
       summary: "Upload a file"
       description: "Uploads a file and returns a success message."
       tags:
-        - Data Upload
+        - People
       operationId: people.upload
       requestBody:
         content:
@@ -117,4 +117,44 @@ paths:
       responses:
         200:
           description: "File uploaded successfully"
+  /notes/{note_id}:
+    get:
+      operationId: "notes.read_one"
+      tags:
+        - Notes
+      summary: "Read one note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "200":
+          description: "Successfully read one note"
+    put:
+      tags:
+        - Notes
+      operationId: "notes.update"
+      summary: "Update a note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "200":
+          description: "Successfully updated note"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              # x-body-name: "note"
+              type: "object"
+              properties:
+                content:
+                  type: "string"
+    delete:
+      tags:
+        - Notes
+      operationId: "notes.delete"
+      summary: "Delete a note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "204":
+          description: "Successfully deleted note"
 
