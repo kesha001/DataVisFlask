@@ -1,0 +1,38 @@
+<div class="debug-card">
+    <form class="debug-form">
+        <input type="text" name="endpoint" value="/api/people" />
+        <button data-action="read">Get Data</button>
+        <button data-action="clear">Clear</button>
+    </form>
+    <pre>
+        <code>{{ config }}</code>
+    </pre>
+</div>
+
+<style>
+    pre {
+        white-space: pre-wrap;
+    }
+</style>
+
+<script>
+    class DebugForm {
+      constructor() {
+        this.debugCard = document.querySelector(".debug-card");
+        this.form = this.debugCard.querySelector(".debug-form");
+        this.clearButton = this.form.querySelector("button[data-action='clear']");
+        this.clearButton.addEventListener(
+          "click",
+          this.handleClearClick.bind(this)
+        );
+      }
+    
+      handleClearClick(event) {
+        event.preventDefault();
+        let code = this.debugCard.querySelector("code");
+        code.innerText = "";
+      }
+    }
+    
+    new DebugForm();
+    </script>
