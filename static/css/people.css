@@ -1,13 +1,24 @@
+
+.person-control-card {
+    text-align: right;
+}
+
+.person-control {
+    text-align: left;
+}
+
 .person-create-card {
     margin-right: 1em;
 }
 
-.person-create-card {
+.person-create-card,
+.person-control-card.editing {
     background-color: var(--secondary-color);
     padding: 1em;
 }
 
-.person-create-card input {
+.person-create-card input,
+.person-control-card input {
     width: 100%;
 }
 

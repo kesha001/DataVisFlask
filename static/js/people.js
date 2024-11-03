@@ -54,3 +54,56 @@ class CreatePersonForm {
         document.querySelector(".people-list").appendChild(personCard);
     }
 }
+
+
+class PersonControl {
+    constructor(personCard) {
+      this.personCard = personCard;
+      this.personElement = this.personCard.querySelector(".person-content");
+      this.personControl = this.personCard.querySelector(".person-control");
+      this.personID = this.personCard.getAttribute("data-person-id");
+      this.form = this.personCard.querySelector("form");
+  
+      this.editBtn = this.personCard.querySelector(".toggle-control");
+      this.editBtn.addEventListener("click", this.handleEditClick.bind(this));
+      this.cancelBtn = this.personCard.querySelector("[data-action='cancel']");
+      this.cancelBtn.addEventListener(
+        "click",
+        this.handleCancelClick.bind(this)
+      );
+      this.deleteBtn = this.personCard.querySelector("[data-action='delete']");
+      this.deleteBtn.addEventListener(
+        "click",
+        this.handleDeleteClick.bind(this)
+      );
+      this.updateBtn = this.personCard.querySelector("[data-action='update']");
+      this.updateBtn.addEventListener(
+        "click",
+        this.handleUpdateClick.bind(this)
+      );
+  
+      this.fillControlForm();
+    }
+    
+    handleEditClick(event) {
+        event.preventDefault();
+        this.personCard
+          .querySelector(".person-control-card")
+          .classList.add("editing");
+        this.personElement.classList.add("hidden");
+        this.editBtn.classList.add("hidden");
+        this.personControl.classList.remove("hidden");
+    }
+
+    handleCancelClick(event) {
+        event.preventDefault();
+        this.personCard
+          .querySelector(".person-control-card")
+          .classList.remove("editing");
+        this.personElement.classList.remove("hidden");
+        this.editBtn.classList.remove("hidden");
+        this.personControl.classList.add("hidden");
+    }
+    
+    
+}
