@@ -42,8 +42,15 @@ class CreatePersonForm {
         const personLastName = personContent.querySelector("[data-person-lname]");
         personLastName.textContent = data.lname;
         personLastName.setAttribute("data-person-lname", data.lname);
+
+        // const personNotes = personContent.querySelector(".note-list ul")
+        // personNotes = personNotes.empty()
     
         personCard.setAttribute("data-person-id", data.id);
+        personCard
+            .querySelectorAll(".note-card")
+            .forEach((noteCard) => noteCard.remove());
+        new NoteCreateForm(personCard.querySelector(".note-list"), data.id);
         document.querySelector(".people-list").appendChild(personCard);
     }
 }

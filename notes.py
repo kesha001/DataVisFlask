@@ -42,6 +42,13 @@ def create(body):
     person_id = note.get("person_id")
     person = Person.query.get(person_id)
     
+    content = note.get("content")
+    if not(content.strip()):
+        abort(
+            400,
+            f"Content of note must not be empty"
+        )
+    
     if person:
         new_note = note_schema.load(note, session=db.session)
         person.notes.append(new_note)

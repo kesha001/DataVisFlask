@@ -10,6 +10,13 @@ def read_all():
 
 def create(body):
     person = body
+    
+    lname = person.get("lname")
+    if not(lname.strip()):
+        abort(
+            400,
+            f"Last name must not be empty"
+        )
 
     new_person = person_schema.load(person, session=db.session)
     db.session.add(new_person)
@@ -28,6 +35,13 @@ def read_one(person_id):
 def update(person_id, body):
     person = body
     existing_person = Person.query.get(person_id)
+
+    lname = person.get("lname")
+    if not(lname.strip()):
+        abort(
+            400,
+            f"Last name must not be empty"
+        )
 
     if existing_person:
         update_person = person_schema.load(person, session=db.session)
