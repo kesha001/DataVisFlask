@@ -4,11 +4,18 @@ export class People {
     constructor() {
         this.allPeopleCards = document.querySelectorAll(".person-card");
         this.activateCreateForm();
+        this.activateAllControls();
     }
 
     activateCreateForm() {
         const peopleForm = document.querySelector(".person-create-card form");
         new CreatePersonForm(peopleForm);
+    }
+
+    activateAllControls() {
+      this.allPeopleCards.forEach((personCard) => {
+        new PersonControl(personCard);
+      });
     }
     
 }
@@ -50,6 +57,7 @@ class CreatePersonForm {
         personCard
             .querySelectorAll(".note-card")
             .forEach((noteCard) => noteCard.remove());
+        new PersonControl(personCard);
         new NoteCreateForm(personCard.querySelector(".note-list"), data.id);
         document.querySelector(".people-list").appendChild(personCard);
     }
@@ -105,5 +113,52 @@ class PersonControl {
         this.personControl.classList.add("hidden");
     }
     
-    
+    handleDeleteClick(event) {
+      event.preventDefault();
+      const endpoint = "/api/people/" + this.personID;
+      sendForm(this.form, "DELETE", endpoint, (data, inputForm) => {
+        let personCard = inputForm.closest(".person-card");
+        if (window.confirm("Do you really want to remove this person?")) {
+          personCard.remove();
+        }
+      });
+    }
+
+    handleUpdateClick(event) {
+      event.preventDefault();
+      const endpoint = "/api/people/" + this.personID;
+      sendForm(this.form, "PUT", endpoint, this.updatePersonInList);
+      this.cancelBtn.click();
+    }
+
+    updatePersonInList(rawData, inputForm) {
+      const data = JSON.parse(rawData);
+      const personCard = inputForm.closest(".person-card");
+  
+      const personFirstName = personCard.querySelector("[data-person-fname]");
+      personFirstName.textContent = data.fname;
+      personFirstName.setAttribute("data-person-fname", data.fname);
+  
+      const personLastName = personCard.querySelector("[data-person-lname]");
+      personLastName.textContent = data.lname;
+      personLastName.setAttribute("data-person-lname", data.lname);
+    }
+
+    fillControlForm() {
+      const personFirstName = this.personElement.querySelector(
+        "[data-person-fname]"
+      ).textContent;
+      const personLastName = this.personElement.querySelector(
+        "[data-person-lname]"
+      ).textContent;
+      this.form
+        .querySelector("[name='id']")
+        .setAttribute("value", this.personID);
+      this.form
+        .querySelector("[name='fname']")
+        .setAttribute("value", personFirstName);
+      this.form
+        .querySelector("[name='lname']")
+        .setAttribute("value", personLastName);
+    }
 }
