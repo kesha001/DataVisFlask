@@ -1,0 +1,17 @@
+<div class="note-control-card">
+    <a class="button toggle-control">✍️ Edit</a>
+    <div class="note-control hidden">
+        <form class="note-form">
+            <input name="person_id" type="hidden" value="{{ person.id }}" />
+            <label>
+                <span>Note</span>
+                <input name="lname" type="text" value="" />
+            </label>
+
+            <button data-action="update">💫 Update note</button>
+            <hr />
+            <button data-action="cancel">👈 Cancel</button>
+            <button data-action="delete">❌ Delete note</button>
+        </form>
+    </div>
+</div>

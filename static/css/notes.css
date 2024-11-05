@@ -1,3 +1,16 @@
+.note-control-card {
+    text-align: right;
+}
+
+.note-control {
+    text-align: left;
+}
+
+.note-create-card {
+    margin-right: 1em;
+}
+
+.note-control-card.editing,
 .note-create-card {
     background-color: var(--secondary-color);
     padding: 1em;
