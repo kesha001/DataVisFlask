@@ -2,10 +2,10 @@
     <a class="button toggle-control">✍️ Edit</a>
     <div class="note-control hidden">
         <form class="note-form">
-            <input name="person_id" type="hidden" value="{{ person.id }}" />
+            <input name="id" type="hidden" value="{{ note.id }}" />
             <label>
                 <span>Note</span>
-                <input name="lname" type="text" value="" />
+                <input name="content" type="text" value="" />
             </label>
 
             <button data-action="update">💫 Update note</button>

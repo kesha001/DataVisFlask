@@ -47,6 +47,7 @@ export class NoteCreateForm {
         event.preventDefault();
         sendForm(this.form, "POST", "/api/notes", this.addNoteToList);
         this.form.reset();
+
     }
 
     addNoteToList(rawData) {
@@ -82,11 +83,11 @@ class NoteControl {
       "click",
       this.handleDeleteClick.bind(this)
     );
-    // this.updateBtn = this.noteCard.querySelector("[data-action='update']");
-    // this.updateBtn.addEventListener(
-    //   "click",
-    //   this.handleUpdateClick.bind(this)
-    // );
+    this.updateBtn = this.noteCard.querySelector("[data-action='update']");
+    this.updateBtn.addEventListener(
+      "click",
+      this.handleUpdateClick.bind(this)
+    );
 
     // this.fillControlForm();
   }
@@ -122,41 +123,31 @@ class NoteControl {
     });
   }
 
-  // handleUpdateClick(event) {
-  //   event.preventDefault();
-  //   const endpoint = "/api/note/" + this.noteID;
-  //   sendForm(this.form, "PUT", endpoint, this.updatePersonInList);
-  //   this.cancelBtn.click();
-  // }
+  handleUpdateClick(event) {
+    event.preventDefault();
+    const endpoint = "/api/notes/" + this.noteID;
+    sendForm(this.form, "PUT", endpoint, this.updateNote);
+    this.cancelBtn.click();
+  }
 
-  // updatePersonInList(rawData, inputForm) {
-  //   const data = JSON.parse(rawData);
-  //   const noteCard = inputForm.closest(".person-card");
+  updateNote(rawData, inputForm) {
+    const data = JSON.parse(rawData);
+    const noteCard = inputForm.closest(".note-card");
 
-  //   const personFirstName = noteCard.querySelector("[data-person-fname]");
-  //   personFirstName.textContent = data.fname;
-  //   personFirstName.setAttribute("data-person-fname", data.fname);
+    const noteContent = noteCard.querySelector(".note-content");
+    noteContent.textContent = data.content;
+    noteContent.setAttribute("data-note-content", data.content);
+  }
 
-  //   const personLastName = noteCard.querySelector("[data-person-lname]");
-  //   personLastName.textContent = data.lname;
-  //   personLastName.setAttribute("data-person-lname", data.lname);
-  // }
-
-  // fillControlForm() {
-  //   const personFirstName = this.noteElement.querySelector(
-  //     "[data-person-fname]"
-  //   ).textContent;
-  //   const personLastName = this.noteElement.querySelector(
-  //     "[data-person-lname]"
-  //   ).textContent;
-  //   this.form
-  //     .querySelector("[name='id']")
-  //     .setAttribute("value", this.noteID);
-  //   this.form
-  //     .querySelector("[name='fname']")
-  //     .setAttribute("value", personFirstName);
-  //   this.form
-  //     .querySelector("[name='lname']")
-  //     .setAttribute("value", personLastName);
-  // }
+  fillControlForm() {
+    const noteContent = this.noteElement.querySelector(
+      ".note-content"
+    ).textContent;
+    this.form
+      .querySelector("[name='id']")
+      .setAttribute("value", this.noteID);
+    this.form
+      .querySelector("[name='content']")
+      .setAttribute("value", noteContent);
+  }
 }
