@@ -34,6 +34,7 @@ class CreatePersonForm {
         event.preventDefault();
         sendForm(this.form, "POST", "/api/people", this.addPersonToList);
         this.form.reset();
+        window.location.reload()
     }
 
     addPersonToList(rawData) {

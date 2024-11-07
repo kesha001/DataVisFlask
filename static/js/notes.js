@@ -47,7 +47,7 @@ export class NoteCreateForm {
         event.preventDefault();
         sendForm(this.form, "POST", "/api/notes", this.addNoteToList);
         this.form.reset();
-
+        window.location.reload(true)
     }
 
     addNoteToList(rawData) {
@@ -58,7 +58,7 @@ export class NoteCreateForm {
         const newNoteCard = document.querySelector(".note-card").cloneNode(true);
         newNoteCard.querySelector(".note-content").textContent = data.content;
         newNoteCard.setAttribute("data-note-id", data.id);
-        noteList.insertBefore(newNoteCard, noteList.children[1]);
+        noteList.insertBefore(newNoteCard, noteList.children[0]);
     }
 }
 
@@ -70,6 +70,7 @@ class NoteControl {
     this.noteID = this.noteCard.getAttribute("data-note-id");
     this.personNoteID = this.noteControl.getAttribute('person_id')
     this.form = this.noteCard.querySelector("form");
+
 
     this.editBtn = this.noteCard.querySelector(".toggle-control");
     this.editBtn.addEventListener("click", this.handleEditClick.bind(this));
@@ -89,7 +90,7 @@ class NoteControl {
       this.handleUpdateClick.bind(this)
     );
 
-    // this.fillControlForm();
+    this.fillControlForm();
   }
   
   handleEditClick(event) {
@@ -140,9 +141,9 @@ class NoteControl {
   }
 
   fillControlForm() {
-    const noteContent = this.noteElement.querySelector(
-      ".note-content"
-    ).textContent;
+
+    const noteContent = this.noteCard.querySelector(".note-content").textContent;
+    
     this.form
       .querySelector("[name='id']")
       .setAttribute("value", this.noteID);
