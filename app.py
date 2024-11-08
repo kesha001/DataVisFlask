@@ -1,15 +1,15 @@
-from flask import render_template
-# import connexion
+from flask import render_template, request
 import config
 from models import Person
 
 app = config.connex_app
-app.add_api(config.basedir / "swagger.yaml")
 
 @app.route("/")
 def home():
-    people = Person.query.all()
-    return render_template("home.html", people=people)
+    # people = Person.query.all()
+    page = request.args.get('page', 1, type=int)
+    people = Person.query.paginate(page=page, per_page=config.PEOPLE_PER_PAGE, error_out=False)
+    return render_template("home.html", people=people.items)
 
 
 
