@@ -22,6 +22,14 @@
         {% for person in people %}
              {% include "_person_content.html" %}
         {% endfor %}
+        <div class="people-pagination"> 
+            {% if prev_url %}
+            <a href="{{ prev_url }}">Prev page</a>
+            {% endif %}
+            {% if next_url %}
+            <a href="{{ next_url }}">Next page</a>
+            {% endif %}
+        </div>
     </div>
     {% include "_debug.html" %}
 </body>
