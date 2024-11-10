@@ -19,6 +19,25 @@ def home():
                         )
 
 
+@app.route("/charts")
+def charts():
+
+    labels = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+    ]
+ 
+    data = [0, 10, 15, 8, 22, 18, 25]
+ 
+
+    return render_template("charts.html",
+                            data=data,
+                            labels=labels,)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
