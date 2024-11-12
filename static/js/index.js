@@ -10,9 +10,11 @@ function main() {
     const debug = new DebugForm();
     debug.showResponse("");
   }
-  if (document.getElementById('myChart')) {
-    createChart(labels, dataPoints);
-  }
+  // if (document.getElementById('myChart')) {
+  console.log("Hello");
+  createChart(labels, dataPoints);
+  
+  // }
 }
 
 main();

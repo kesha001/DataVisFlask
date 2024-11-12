@@ -1,6 +1,7 @@
 from flask import render_template, request, url_for
 import config
 from models import Person
+from chart_utils import create_chart
 
 app = config.connex_app
 
@@ -22,21 +23,8 @@ def home():
 @app.route("/charts")
 def charts():
 
-    labels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-    ]
- 
-    data = [0, 10, 15, 8, 22, 18, 25]
- 
-
-    return render_template("charts.html",
-                            data=data,
-                            labels=labels,)
+    graphJSON = create_chart()
+    return render_template('charts.html', graphJSON=graphJSON)
 
 
 if __name__ == "__main__":
