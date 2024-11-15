@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 import json
 import plotly.utils
-from flask import abort, make_response, request
+from flask import abort, make_response, request, jsonify
 import csv
 
 def create_chart():
@@ -41,7 +41,7 @@ def upload_chart():
         file_content = file.read().decode('utf-8')
         csv_reader = csv.DictReader(file_content.splitlines())
         csv_data = [row for row in csv_reader]
-        print("CSV Chart Data:", csv_data)
+        return jsonify({"message": "File processed successfully", "data": csv_data[:5]}), 200
 
     except Exception as e:
         abort(500, description=f"Failed to process the CSV file: {str(e)}")

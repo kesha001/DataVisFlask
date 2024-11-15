@@ -1,4 +1,4 @@
-import { sendForm } from "./request.js";
+import { sendData, sendForm } from "./request.js";
 
 export class Charts {
     constructor() {
@@ -25,10 +25,7 @@ class UploadChartForm {
 
     handleUploadClick(event) {
         event.preventDefault();
-        console.log("hello from charts")
-        sendForm(this.form, "POST", "/api/charts/upload", this.showUploaded); // change showUploaded to smth useful
-        // this.form.reset();
-        // window.location.reload()
+        sendData(this.form)
     }  
 
     showUploaded(rawData) {
