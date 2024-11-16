@@ -34,3 +34,9 @@ class UploadChartForm {
     }
 
 }
+
+function main() {
+    new Charts();
+}
+
+main();

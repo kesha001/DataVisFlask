@@ -4,7 +4,7 @@ import { Notes } from "./notes.js";
 import { Charts } from "./charts.js";
 
 function main() {
-  new Charts();
+  // new Charts();
   new People();
   new Notes();
   
