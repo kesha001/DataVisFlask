@@ -38,29 +38,28 @@ class CreatePersonForm {
     }
 
     addPersonToList(rawData) {
-        const data = JSON.parse(rawData);
-    
-        const personCard = document.querySelector(".person-card").cloneNode(true);
-        const personContent = personCard.querySelector(".person-content");
-    
-        const personFirstName = personContent.querySelector("[data-person-fname]");
-        personFirstName.textContent = data.fname;
-        personFirstName.setAttribute("data-person-fname", data.fname);
-    
-        const personLastName = personContent.querySelector("[data-person-lname]");
-        personLastName.textContent = data.lname;
-        personLastName.setAttribute("data-person-lname", data.lname);
+      const data = JSON.parse(rawData);
+  
+      const personCard = document.querySelector(".person-card").cloneNode(true);
+      const personContent = personCard.querySelector(".person-content");
+  
+      const personFirstName = personContent.querySelector("[data-person-fname]");
+      personFirstName.textContent = data.fname;
+      personFirstName.setAttribute("data-person-fname", data.fname);
+  
+      const personLastName = personContent.querySelector("[data-person-lname]");
+      personLastName.textContent = data.lname;
+      personLastName.setAttribute("data-person-lname", data.lname);
 
-        // const personNotes = personContent.querySelector(".note-list ul")
-        // personNotes = personNotes.empty()
-    
-        personCard.setAttribute("data-person-id", data.id);
-        personCard
-            .querySelectorAll(".note-card")
-            .forEach((noteCard) => noteCard.remove());
-        new PersonControl(personCard);
-        new NoteCreateForm(personCard.querySelector(".note-list"), data.id);
-        document.querySelector(".people-list").appendChild(personCard);
+      
+  
+      personCard.setAttribute("data-person-id", data.id);
+      personCard
+          .querySelectorAll(".note-card")
+          .forEach((noteCard) => noteCard.remove());
+      new PersonControl(personCard);
+      new NoteCreateForm(personCard.querySelector(".note-list"), data.id);
+      document.querySelector(".people-list").appendChild(personCard);
     }
 }
 

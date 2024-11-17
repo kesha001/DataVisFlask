@@ -6,7 +6,7 @@ export class Charts {
     }
 
     activateUploadForm() {
-        const chartForm = document.querySelector(".chart-upload-card form");
+        const chartForm = document.querySelector(".chart-upload-card");
         new UploadChartForm(chartForm);
     }
    
@@ -15,8 +15,9 @@ export class Charts {
 
 class UploadChartForm {
     constructor(el) {
-        this.form = el;
+        this.form = el.querySelector("form");
         this.uploadButton = el.querySelector("button[data-action='upload']");
+        this.chartContainer = el.getAttribute("chart")
         this.uploadButton.addEventListener(
           "click",
           this.handleUploadClick.bind(this)

@@ -24,16 +24,18 @@ export function sendForm(form, action, endpoint, callback) {
   request.send(dataJSON);
 }
 
-export async function sendData(form) {
+export async function sendData(form, callback) {
   const formData = new FormData(form);
 
   try {
     const response = await fetch("http://localhost:8000/api/charts/upload", {
       method: "POST",
-      // Set the FormData instance as the request body
       body: formData,
     });
-    console.log(await response.json());
+    const data = await response.json();
+    if (callback) {
+      callback(data); // Invoke callback with the parsed data
+    }
   } catch (e) {
     console.error(e);
   }
