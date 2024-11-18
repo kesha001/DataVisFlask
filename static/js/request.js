@@ -34,7 +34,7 @@ export async function sendData(form, callback) {
     });
     const data = await response.json();
     if (callback) {
-      callback(data); // Invoke callback with the parsed data
+      callback(data); 
     }
   } catch (e) {
     console.error(e);

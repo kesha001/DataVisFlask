@@ -17,7 +17,7 @@ class UploadChartForm {
     constructor(el) {
         this.form = el.querySelector("form");
         this.uploadButton = el.querySelector("button[data-action='upload']");
-        this.chartContainer = el.getAttribute("chart")
+        this.chartContainer = el.querySelector("div[id=chart]")
         this.uploadButton.addEventListener(
           "click",
           this.handleUploadClick.bind(this)
@@ -26,11 +26,19 @@ class UploadChartForm {
 
     handleUploadClick(event) {
         event.preventDefault();
-        sendData(this.form)
+        sendData(this.form, this.showUploaded)
     }  
 
     showUploaded(rawData) {
-        const data = JSON.parse(rawData);
+        const graphData = JSON.parse(rawData);
+        // Plotly.newPlot('chart', graphData.data);
+        // console.log(this.form.JSON)
+        // console.log(el.JSON)
+        // console.log(this.chartContainer.JSON)
+        Plotly.newPlot(document.getElementById("chart"), graphData.data);
+
+        // Plotly.newPlot(this.chartContainer, graphData.data);
+
         
     }
 
