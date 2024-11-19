@@ -34,6 +34,7 @@ export async function sendData(form, callback) {
     });
     const data = await response.json();
     if (callback) {
+      
       callback(data); 
     }
   } catch (e) {
