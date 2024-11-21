@@ -18,6 +18,7 @@ class UploadChartForm {
         this.form = el.querySelector(".upload-form");
         this.uploadButton = this.form.querySelector('button[data-action="upload"]');
         this.chartContainer = el.querySelector(".chart")
+        this.chartList = el.querySelector(".chart-list")
         this.uploadButton.addEventListener(
           "click",
           this.handleUploadClick.bind(this)
@@ -28,6 +29,7 @@ class UploadChartForm {
 
     handleUploadClick(event) {
         event.preventDefault();
+        // sendData(this.form, this.addChartToList)
         sendData(this.form, this.showUploaded)
     }  
 
@@ -38,6 +40,20 @@ class UploadChartForm {
         
 
         Plotly.newPlot(this.chartContainer, graphData.data);
+
+        
+    }
+
+    addChartToList(rawData) { 
+        const graphData = JSON.parse(rawData);
+        
+        const newChartCard = document.querySelector(".chart").cloneNode(true);
+        // const newChartCard = document.getElementById("chart").cloneNode(true);
+        const chartList = document.querySelector(".chart-list")
+
+        Plotly.newPlot(newChartCard, graphData.data);
+
+        chartList.insertBefore(newChartCard, chartList.children[0]);
 
         
     }
