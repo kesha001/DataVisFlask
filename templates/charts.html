@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>RP Flask REST API</title>
     {# <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css') }}">
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 </head>
 <body>
@@ -14,6 +15,7 @@
         <form class="upload-form">   
             <input type="file" name="file" />   
             <button data-action="upload">Upload Chart</button>
+            <button data-action="upload-new">Upload NEW Chart</button>
         </form>  
         <ul class="chart-list">
             <li class="chart-card">

@@ -17,11 +17,17 @@ class UploadChartForm {
     constructor(el) {
         this.form = el.querySelector(".upload-form");
         this.uploadButton = this.form.querySelector('button[data-action="upload"]');
+        this.uploadButtonNew = this.form.querySelector('button[data-action="upload-new"]');
         this.chartContainer = el.querySelector(".chart")
         this.chartList = el.querySelector(".chart-list")
         this.uploadButton.addEventListener(
           "click",
           this.handleUploadClick.bind(this)
+        );
+
+        this.uploadButtonNew.addEventListener(
+            "click",
+            this.handleUploadNewClick.bind(this)
         );
 
         this.showUploaded = this.showUploaded.bind(this);
@@ -31,6 +37,11 @@ class UploadChartForm {
         event.preventDefault();
         // sendData(this.form, this.addChartToList)
         sendData(this.form, this.showUploaded)
+    } 
+    
+    handleUploadNewClick(event) {
+        event.preventDefault();
+        sendData(this.form, this.addChartToList)
     }  
 
     showUploaded(rawData) { 
@@ -44,6 +55,10 @@ class UploadChartForm {
         
     }
 
+    insertAfter(newNode, existingNode) {
+        existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+    }
+
     addChartToList(rawData) { 
         const graphData = JSON.parse(rawData);
         
@@ -53,10 +68,12 @@ class UploadChartForm {
 
         Plotly.newPlot(newChartCard, graphData.data);
 
-        chartList.insertBefore(newChartCard, chartList.children[0]);
+        // chartList.insertBefore(newChartCard, chartList.children[0]);
 
-        
+        chartList.insertBefore(newChartCard, chartList.children[0].nextSibling);
     }
+
+
 
 }
 
