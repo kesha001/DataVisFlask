@@ -23,8 +23,8 @@ def home():
 @app.route("/charts")
 def charts():
 
-    graphJSON = create_chart()
-    return render_template('charts.html', graphJSON=graphJSON)
+    graphJSON, columns = create_chart()
+    return render_template('charts.html', graphJSON=graphJSON, columns=columns)
 
 
 if __name__ == "__main__":

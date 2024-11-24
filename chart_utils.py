@@ -26,7 +26,7 @@ def create_chart(data=None):
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     
-    return graphJSON
+    return graphJSON, df.columns.to_list()
 
 
 def upload_chart():

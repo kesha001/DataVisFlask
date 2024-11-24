@@ -1,3 +1,25 @@
 <li class="chart-card">
     <div id='chart' class='chart'></div>
+    <div>
+        {% for column in columns %}
+            <label>
+                <input type="checkbox" class="column-checkbox" value="{{ column }}" checked> {{ column }}
+            </label>
+        {% endfor %}
+        <button id="update-graph">Update Graph</button>
+    </div>
+
+    <label for="column-selectors-bar-chart">Choose chart configuration:</label>
+    <div name="column-selectors-bar-chart">
+        <select name="bar-chart-columns-x">
+            {% for column in columns %}
+                <option value="{{ column }}">"{{ column }}"</option>
+            {% endfor %}
+        </select>
+        <select name="bar-chart-columns-y">
+            {% for column in columns %}
+                <option value="{{ column }}">"{{ column }}"</option>
+            {% endfor %}
+        </select>
+    </div>
 </li>
