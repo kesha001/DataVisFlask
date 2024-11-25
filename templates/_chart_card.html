@@ -6,20 +6,27 @@
                 <input type="checkbox" class="column-checkbox" value="{{ column }}" checked> {{ column }}
             </label>
         {% endfor %}
-        <button id="update-graph">Update Graph</button>
     </div>
 
     <label for="column-selectors-bar-chart">Choose chart configuration:</label>
-    <div name="column-selectors-bar-chart">
-        <select name="bar-chart-columns-x">
+    <div class="column-selectors-bar-chart">
+        <select class="bar-chart-columns-x">
             {% for column in columns %}
                 <option value="{{ column }}">"{{ column }}"</option>
             {% endfor %}
         </select>
-        <select name="bar-chart-columns-y">
+        <select class="bar-chart-columns-y">
             {% for column in columns %}
                 <option value="{{ column }}">"{{ column }}"</option>
             {% endfor %}
         </select>
+        <button class="update-bar-chart">Update Graph</button>
     </div>
 </li>
+<script>
+    $(document).ready(function () {
+        $(".update-bar-chart").on("click", function () {
+            console.log("Button clicked!");
+        });
+    });
+</script>

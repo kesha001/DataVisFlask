@@ -8,6 +8,7 @@ export class Charts {
     activateUploadForm() {
         const chartForm = document.querySelector(".chart-upload-card");
         new UploadChartForm(chartForm);
+        new UpdateChartForm(chartForm);
     }
    
 }
@@ -18,8 +19,8 @@ class UploadChartForm {
         this.form = el.querySelector(".upload-form");
         this.uploadButton = this.form.querySelector('button[data-action="upload"]');
         this.uploadButtonNew = this.form.querySelector('button[data-action="upload-new"]');
-        this.chartContainer = el.querySelector(".chart")
-        this.chartList = el.querySelector(".chart-list")
+        this.chartContainer = el.querySelector(".chart");
+        this.chartList = el.querySelector(".chart-list");
         this.uploadButton.addEventListener(
           "click",
           this.handleUploadClick.bind(this)
@@ -36,18 +37,18 @@ class UploadChartForm {
     handleUploadClick(event) {
         event.preventDefault();
         // sendData(this.form, this.addChartToList)
-        sendData(this.form, this.showUploaded)
+        sendData(this.form, this.showUploaded);
     } 
     
     handleUploadNewClick(event) {
         event.preventDefault();
-        sendData(this.form, this.addChartToList)
+        sendData(this.form, this.addChartToList);
     }  
 
     showUploaded(rawData) { 
         const graphData = JSON.parse(rawData);
         
-        console.log(graphData)
+        console.log(graphData);
         
 
         Plotly.newPlot(this.chartContainer, graphData.data);
@@ -72,10 +73,24 @@ class UploadChartForm {
 
         chartList.insertBefore(newChartCard, chartList.children[0].nextSibling);
     }
-
-
-
 }
+
+class UpdateChartForm {
+    constructor(el) {
+        this.chartContainer = el.querySelector("chart");
+        this.chartList = el.querySelector(".chart-list");
+        this.chartCard = el.querySelector(".chart-card");
+        this.chartSelector = this.chartCard.querySelector("column-selectors-bar-chart");
+        this.updateButton = this.chartSelector.querySelector(".update-bar-chart");
+        this.selectorX = this.chartSelector.querySelector("bar-chart-columns-x");
+        this.selectorY = this.chartSelector.querySelector("bar-chart-columns-y");
+
+        console.log(this.chartList); 
+
+    }
+}
+
+
 
 function main() {
     new Charts();
