@@ -32,11 +32,11 @@ class UploadChartForm {
         );
 
         this.showUploaded = this.showUploaded.bind(this);
+
       }
 
     handleUploadClick(event) {
         event.preventDefault();
-        // sendData(this.form, this.addChartToList)
         sendData(this.form, this.showUploaded);
     } 
     
@@ -64,7 +64,6 @@ class UploadChartForm {
         const graphData = JSON.parse(rawData);
         
         const newChartCard = document.querySelector(".chart").cloneNode(true);
-        // const newChartCard = document.getElementById("chart").cloneNode(true);
         const chartList = document.querySelector(".chart-list")
 
         Plotly.newPlot(newChartCard, graphData.data);
@@ -77,16 +76,30 @@ class UploadChartForm {
 
 class UpdateChartForm {
     constructor(el) {
-        this.chartContainer = el.querySelector("chart");
+        
+        this.chartContainer = el.querySelector(".chart");
         this.chartList = el.querySelector(".chart-list");
         this.chartCard = el.querySelector(".chart-card");
-        this.chartSelector = this.chartCard.querySelector("column-selectors-bar-chart");
+        this.chartSelector = this.chartCard.querySelector(".column-selectors-bar-chart");
         this.updateButton = this.chartSelector.querySelector(".update-bar-chart");
-        this.selectorX = this.chartSelector.querySelector("bar-chart-columns-x");
-        this.selectorY = this.chartSelector.querySelector("bar-chart-columns-y");
+        this.selectorX = this.chartSelector.querySelector(".bar-chart-columns-x");
+        this.selectorY = this.chartSelector.querySelector(".bar-chart-columns-y");
 
-        console.log(this.chartList); 
+        this.updateButton.addEventListener(
+            "click",
+            this.handleUpdateClick.bind(this)
+        );
+        
 
+    }
+
+    handleUpdateClick(event) {
+        event.preventDefault();
+        this.updateChart();
+    } 
+
+    updateChart() {
+        console.log(this.selectorX.value);
     }
 }
 

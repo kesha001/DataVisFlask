@@ -22,9 +22,11 @@ def create_chart(data=None):
 
     fig = px.bar(df, x='Name', y='Age', color='City', barmode='group')
 
-    print(df.head())
+    # print(df.head())
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+    # print(graphJSON.layout)
     
     return graphJSON, df.columns.to_list()
 
@@ -47,7 +49,7 @@ def upload_chart():
         csv_reader = csv.DictReader(file_content.splitlines())
         csv_data = [row for row in csv_reader]
         # print(csv_data)
-        graph = create_chart(data=csv_data)
+        graph, column_list = create_chart(data=csv_data)
         # return jsonify({"message": "File processed successfully", "data": csv_data[:5]}), 200
         return graph
 

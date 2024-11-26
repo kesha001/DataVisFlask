@@ -31,6 +31,11 @@
     var graphs = {{ graphJSON | safe }};
     if (graphs) {
         Plotly.newPlot('chart', graphs.data, graphs.layout || {});
+       
+        var xAxisTitle = graphs.layout.xaxis?.title?.text || 'X-axis';
+        var yAxisTitle = graphs.layout.yaxis?.title?.text || 'Y-axis';
+        document.querySelector(".bar-chart-columns-x").value = xAxisTitle;
+        document.querySelector(".bar-chart-columns-y").value = yAxisTitle;
     } else {
         console.log("No default chart available.");
     }
