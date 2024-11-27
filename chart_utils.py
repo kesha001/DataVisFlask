@@ -5,9 +5,9 @@ import plotly.utils
 from flask import abort, make_response, request, jsonify
 import csv
 
-def create_chart(data=None):
-    if not data:
-        students = [
+
+def get_default_data():
+    students = [
             ['Akash', 34, 'Sydney', 'Australia'],
             ['Rithika', 30, 'Coimbatore', 'India'],
             ['Priya', 31, 'Coimbatore', 'India'],
@@ -15,12 +15,18 @@ def create_chart(data=None):
             ['Praneeth', 16, 'New York', 'US'],
             ['Praveen', 17, 'Toronto', 'Canada']
         ]
+    df = pd.DataFrame(students, columns=['Name', 'Age', 'City', 'Country'])
 
-        df = pd.DataFrame(students, columns=['Name', 'Age', 'City', 'Country'])
+    return df
+
+def create_chart(data=None, fig_type='bar'):
+    if not data:
+        df = get_default_data()
     else:
         df = pd.DataFrame(data)
 
-    fig = px.bar(df, x='Name', y='Age', color='City', barmode='group')
+    if fig_type == 'bar':
+        fig = px.bar(df, x='Name', y='Age', color='City', barmode='group') 
 
     # print(df.head())
     
