@@ -33,6 +33,23 @@ components:
       required: True
       schema:
         type: "string"
+  requestBodies:
+    ChartConfig:
+      description: "Configuration for generating the chart"
+      required: True
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              x_column:
+                type: "string"
+              y_column:
+                type: "string"
+            required:
+              - x_column
+              - y_column
+
     
 
 paths:
@@ -179,10 +196,10 @@ paths:
       responses:
         "204":
           description: "Successfully deleted note"
-  /charts/upload:
+  /charts:
     post:
-      summary: "Upload a file"
-      description: "Uploads a file and returns a success message."
+      summary: "Upload a chart"
+      description: "Uploads a new chart or main chart"
       tags:
         - Charts
       operationId: chart_utils.upload_chart
@@ -198,6 +215,14 @@ paths:
       responses:
         200:
           description: "File uploaded successfully"
-
-
-
+    put:
+      summary: "Update chart"
+      description: "Updates existing main chart"
+      tags:
+        - Charts
+      operationId: chart_utils.update_chart
+      requestBody:
+        $ref: '#/components/requestBodies/ChartConfig'
+      responses:
+        200:
+          description: "Chart updated successfully"

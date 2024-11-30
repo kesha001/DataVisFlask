@@ -13,6 +13,8 @@ export function sendForm(form, action, endpoint, callback) {
   const formData = new FormData(form);
   const dataJSON = JSON.stringify(Object.fromEntries(formData));
 
+  console.log(dataJSON)
+
   const request = new XMLHttpRequest();
   request.onreadystatechange = () => {
     if (request.readyState === 4) {
@@ -26,9 +28,9 @@ export function sendForm(form, action, endpoint, callback) {
 
 export async function sendData(form, callback) {
   const formData = new FormData(form);
-
+  console.log(formData)
   try {
-    const response = await fetch("http://localhost:8000/api/charts/upload", {
+    const response = await fetch("/api/charts", {
       method: "POST",
       body: formData,
     });

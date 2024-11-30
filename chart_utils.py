@@ -19,22 +19,27 @@ def get_default_data():
 
     return df
 
-def create_chart(data=None, fig_type='bar'):
+def update_chart(body):
+    print(body)
+
+def create_chart(data=None, fig_type='bar', x_ax='Name', y_ax='Age'):
     if not data:
         df = get_default_data()
     else:
         df = pd.DataFrame(data)
 
     if fig_type == 'bar':
-        fig = px.bar(df, x='Name', y='Age', color='City', barmode='group') 
+        fig = px.bar(df, x=x_ax, y=y_ax, color='City', barmode='group') 
 
     # print(df.head())
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    # print(fig['layout', 'xaxis', 'title', 'text'])
+    # print(fig['layout', 'yaxis', 'title', 'text'])
 
     # print(graphJSON.layout)
     
-    return graphJSON, df.columns.to_list()
+    return graphJSON, [x_ax, y_ax]
 
 
 def upload_chart():

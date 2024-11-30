@@ -80,6 +80,7 @@ class UpdateChartForm {
         this.chartContainer = el.querySelector(".chart");
         this.chartList = el.querySelector(".chart-list");
         this.chartCard = el.querySelector(".chart-card");
+        this.form = this.chartCard.querySelector(".update-bar-chart-form");
         this.chartSelector = this.chartCard.querySelector(".column-selectors-bar-chart");
         this.updateButton = this.chartSelector.querySelector(".update-bar-chart");
         this.selectorX = this.chartSelector.querySelector(".bar-chart-columns-x");
@@ -90,16 +91,18 @@ class UpdateChartForm {
             this.handleUpdateClick.bind(this)
         );
         
-
+        console.log(this.form);
     }
 
     handleUpdateClick(event) {
         event.preventDefault();
-        this.updateChart();
+        sendForm(this.form, "PUT", "/api/charts", this.updateChart);
     } 
 
-    updateChart() {
-        console.log(this.selectorX.value);
+    updateChart(rawData) {
+        // console.log(this.selectorX.value);
+        const graphData = JSON.parse(rawData);
+        console.log("chart updated")
     }
 }
 

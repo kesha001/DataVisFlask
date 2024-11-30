@@ -9,20 +9,23 @@
     </div>
 
     <label for="column-selectors-bar-chart">Choose chart configuration:</label>
+    
     <div class="column-selectors-bar-chart">
-        <select class="bar-chart-columns-x">
-            <option value="" selected disabled hidden>Choose here</option>
-            {% for column in columns %}
-                <option value="{{ column }}">"{{ column }}"</option>
-            {% endfor %}
-        </select>
-        <select class="bar-chart-columns-y">
-            <option value="" selected disabled hidden>Choose here</option>
-            {% for column in columns %}
-                <option value="{{ column }}">"{{ column }}"</option>
-            {% endfor %}
-        </select>
-        <button class="update-bar-chart">Update Graph</button>
+        <form class="update-bar-chart-form">
+            <select class="bar-chart-columns-x">
+                <option value="" selected disabled hidden>Choose here</option>
+                {% for column in columns %}
+                    <option value="{{ column }}">"{{ column }}"</option>
+                {% endfor %}
+            </select>
+            <select class="bar-chart-columns-y">
+                <option value="" selected disabled hidden>Choose here</option>
+                {% for column in columns %}
+                    <option value="{{ column }}">"{{ column }}"</option>
+                {% endfor %}
+            </select>
+            <button class="update-bar-chart" type="sumbit">Update Graph</button>
+        </form>
     </div>
 </li>
 <script>
