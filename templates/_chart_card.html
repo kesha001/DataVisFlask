@@ -12,14 +12,14 @@
     
     <div class="column-selectors-bar-chart">
         <form class="update-bar-chart-form">
-            <select class="bar-chart-columns-x">
-                <option value="" selected disabled hidden>Choose here</option>
+            <select class="bar-chart-columns-x" name="x_column">
+                <option selected disabled hidden>Choose here</option>
                 {% for column in columns %}
                     <option value="{{ column }}">"{{ column }}"</option>
                 {% endfor %}
             </select>
-            <select class="bar-chart-columns-y">
-                <option value="" selected disabled hidden>Choose here</option>
+            <select class="bar-chart-columns-y" name="y_column">
+                <option selected disabled hidden>Choose here</option>
                 {% for column in columns %}
                     <option value="{{ column }}">"{{ column }}"</option>
                 {% endfor %}

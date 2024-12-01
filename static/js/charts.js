@@ -90,8 +90,7 @@ class UpdateChartForm {
             "click",
             this.handleUpdateClick.bind(this)
         );
-        
-        console.log(this.form);
+
     }
 
     handleUpdateClick(event) {

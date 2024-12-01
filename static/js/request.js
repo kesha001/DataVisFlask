@@ -13,8 +13,6 @@ export function sendForm(form, action, endpoint, callback) {
   const formData = new FormData(form);
   const dataJSON = JSON.stringify(Object.fromEntries(formData));
 
-  console.log(dataJSON)
-
   const request = new XMLHttpRequest();
   request.onreadystatechange = () => {
     if (request.readyState === 4) {
