@@ -37,12 +37,12 @@ class UploadChartForm {
 
     handleUploadClick(event) {
         event.preventDefault();
-        sendData(this.form, this.showUploaded);
+        sendData(this.form, "POST", this.showUploaded);
     } 
     
     handleUploadNewClick(event) {
         event.preventDefault();
-        sendData(this.form, this.addChartToList);
+        sendData(this.form, "POST", this.addChartToList);
     }  
 
     showUploaded(rawData) { 
@@ -52,7 +52,6 @@ class UploadChartForm {
         
 
         Plotly.newPlot(this.chartContainer, graphData.data);
-
         
     }
 
@@ -91,17 +90,22 @@ class UpdateChartForm {
             this.handleUpdateClick.bind(this)
         );
 
+        this.updateChart = this.updateChart.bind(this);
+
     }
 
     handleUpdateClick(event) {
         event.preventDefault();
-        sendForm(this.form, "PUT", "/api/charts", this.updateChart);
+        sendData(this.form, "PUT", this.updateChart);
     } 
 
     updateChart(rawData) {
         // console.log(this.selectorX.value);
+        // console.log(rawData);
         const graphData = JSON.parse(rawData);
-        console.log("chart updated")
+        // console.log(graphData);
+        console.log("chart updated");
+        Plotly.newPlot(this.chartContainer, graphData.data);
     }
 }
 

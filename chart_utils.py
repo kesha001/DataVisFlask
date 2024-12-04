@@ -21,6 +21,18 @@ def get_default_data():
 
 def update_chart(body):
     print(body)
+    try:
+        x_column = body['x_column']
+        y_column = body['y_column']
+
+        graph, column_list = create_chart(x_ax=x_column, y_ax=y_column)
+        print(type(graph))
+        return graph
+
+    except Exception as e:
+        abort(500, description=f"Failed to process update: {str(e)}")
+
+
 
 def create_chart(data=None, fig_type='bar', x_ax='Name', y_ax='Age'):
     if not data:
@@ -34,10 +46,10 @@ def create_chart(data=None, fig_type='bar', x_ax='Name', y_ax='Age'):
     # print(df.head())
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    # print(fig['layout', 'xaxis', 'title', 'text'])
-    # print(fig['layout', 'yaxis', 'title', 'text'])
+    print(fig['layout', 'xaxis', 'title', 'text'])
+    print(fig['layout', 'yaxis', 'title', 'text'])
 
-    # print(graphJSON.layout)
+    # print(graphJSON)
     
     return graphJSON, [x_ax, y_ax]
 
@@ -62,6 +74,7 @@ def upload_chart():
         # print(csv_data)
         graph, column_list = create_chart(data=csv_data)
         # return jsonify({"message": "File processed successfully", "data": csv_data[:5]}), 200
+        print(type(graph))
         return graph
 
     except Exception as e:
