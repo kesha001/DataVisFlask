@@ -226,3 +226,19 @@ paths:
       responses:
         200:
           description: "Chart updated successfully"
+  /charts/download_template:
+    get:
+      operationId: "chart_utils.download_template"
+      tags:
+        - "Charts"
+      summary: "Download template for chart"
+      responses:
+        200:
+          description: "File downloaded successfully"
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: "File not found"

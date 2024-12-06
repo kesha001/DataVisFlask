@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 import json
 import plotly.utils
-from flask import abort, make_response, request, jsonify
+from flask import abort, make_response, request, jsonify, send_file
 import csv
 
 
@@ -79,3 +79,8 @@ def upload_chart():
 
     except Exception as e:
         abort(500, description=f"Failed to process the CSV file: {str(e)}")
+
+
+def download_template():
+    path = "template.csv"
+    return send_file(path, as_attachment=True)
