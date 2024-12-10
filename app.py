@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for
 import config
 from models import Person
-from chart_utils import create_chart
+from chart_utils import create_chart, test_storing, test_download
 
 app = config.connex_app
 
@@ -25,6 +25,20 @@ def charts():
 
     graphJSON, columns = create_chart()
     return render_template('charts.html', graphJSON=graphJSON, columns=columns)
+
+@app.route("/charts/test_upload_storing", methods=['GET', 'POST'])
+def test_upload_storing():
+    if request.method == 'POST':
+        file = request.files['file']
+        test_storing(file)
+    return render_template('test_upload_storing.html')
+
+@app.route('/charts/download/<upload_id>')
+def test_download_storing(upload_id):
+    # print("hello from download")
+    returnv = test_download(upload_id)
+
+    return returnv
 
 
 if __name__ == "__main__":

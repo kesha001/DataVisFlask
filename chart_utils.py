@@ -3,8 +3,13 @@ import plotly.express as px
 import json
 import plotly.utils
 from flask import abort, make_response, request, jsonify, send_file
+from models import Upload, upload_schema
+from config import db
 import csv
 
+
+#test library
+from io import BytesIO
 
 def get_default_data():
     students = [
@@ -84,3 +89,19 @@ def upload_chart():
 def download_template():
     path = "template.csv"
     return send_file(path, as_attachment=True)
+
+
+def test_storing(file):
+    if request.method == 'POST':
+        print("file posted")
+        upload = Upload(filename=file.filename, data=file.read())
+        db.session.add(upload)
+        db.session.commit()
+        print(f"{file.filename} {upload.id}")
+        return f'Uploaded: {file.filename} {upload.id}'
+    
+def test_download(upload_id):
+    upload = Upload.query.filter_by(id=upload_id).first()
+    print(f"upload {upload}")
+    return send_file(BytesIO(upload.data), 
+                     download_name=upload.filename, as_attachment=True)

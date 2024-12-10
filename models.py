@@ -46,7 +46,22 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
         include_relationships = True
     
     notes = fields.Nested(NoteSchema, many=True)
+
+
+class Upload(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	filename = db.Column(db.String(50))
+	data = db.Column(db.LargeBinary)
+     
+
+class UploadSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Upload
+        load_instance = True 
+        sqla_session = db.session  
+
     
 person_schema = PersonSchema()
 people_schema = PersonSchema(many=True)
 note_schema = NoteSchema()
+upload_schema = UploadSchema()

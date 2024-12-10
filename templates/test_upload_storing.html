@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RP Flask REST API</title>
+    {# <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> #}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>
+        Hello, Test Uploading Storing!
+    </h1>
+    <div>
+        <form method="POST" action="/charts/test_upload_storing" enctype="multipart/form-data">
+            <input class="ok" type="file" name="file">
+            <button class="op">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
