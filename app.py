@@ -37,7 +37,7 @@ def test_upload_storing():
 def test_download_storing(upload_id):
     # print("hello from download")
     returnv = test_download(upload_id)
-
+    print(returnv)
     return returnv
 
 

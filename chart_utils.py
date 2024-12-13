@@ -93,8 +93,10 @@ def download_template():
 
 def test_storing(file):
     if request.method == 'POST':
-        print("file posted")
-        upload = Upload(filename=file.filename, data=file.read())
+        
+        data = {1: "test"}
+        print("file converted")
+        upload = Upload(filename=file.filename, data=data)
         db.session.add(upload)
         db.session.commit()
         print(f"{file.filename} {upload.id}")
@@ -102,6 +104,8 @@ def test_storing(file):
     
 def test_download(upload_id):
     upload = Upload.query.filter_by(id=upload_id).first()
-    print(f"upload {upload}")
-    return send_file(BytesIO(upload.data), 
+    print(f"upload {upload.data}")
+    json_data = json.dumps(upload.data) 
+    file_stream = BytesIO(json_data.encode('utf-8'))
+    return send_file(file_stream, 
                      download_name=upload.filename, as_attachment=True)
