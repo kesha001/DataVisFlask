@@ -10,6 +10,7 @@ export class Charts {
         new UploadChartForm(chartForm);
         new UpdateChartForm(chartForm);
     }
+
    
 }
 
@@ -32,6 +33,8 @@ class UploadChartForm {
         );
 
         this.showUploaded = this.showUploaded.bind(this);
+
+
 
       }
 

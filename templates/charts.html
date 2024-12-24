@@ -18,8 +18,21 @@
             <button data-action="upload">Upload Chart</button>
             <button data-action="upload-new">Upload NEW Chart</button>
         </form>  
+        <a class="download_template_btn" href="/api/charts/download_template">
+            <button>Download Template</button>
+        </a>
         <ul class="chart-list">
             {% include "_chart_card.html" %}
+            {% for graph in uploaded_graphs %}
+            <div class="graph-container">
+                {% if graph.rendered_html %}
+                    <!-- Render the saved HTML -->
+                    {{ graph.rendered_html | safe }}
+                {% else %}
+                    <p>No graph available</p>
+            {% endif %}
+        </div>
+    {% endfor %}
         </ul>
             
         

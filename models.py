@@ -48,15 +48,16 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
     notes = fields.Nested(NoteSchema, many=True)
 
 
-class Upload(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	filename = db.Column(db.String(50))
-	data = db.Column(db.JSON)
+class ChartGraph(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(50))
+    data = db.Column(db.JSON)
+    rendered_html = db.Column(db.Text, nullable=True)
      
 
-class UploadSchema(ma.SQLAlchemyAutoSchema):
+class ChartGraphSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = Upload
+        model = ChartGraph
         load_instance = True 
         sqla_session = db.session  
 
@@ -64,4 +65,4 @@ class UploadSchema(ma.SQLAlchemyAutoSchema):
 person_schema = PersonSchema()
 people_schema = PersonSchema(many=True)
 note_schema = NoteSchema()
-upload_schema = UploadSchema()
+chart_graph_schema = ChartGraphSchema()
